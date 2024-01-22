@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import Calculator from './Calculator';
 
-describe("Delivery Fee Calculator", () => {
+describe("Calculator component", () => {
     test("User enters Cart Value less than 10, a small order surcharge is added to the delivery price which is equal the difference between the cart value and 10€ ", () => {
         const cartValue = "9"
         const deliveryDistance = "499"
@@ -30,5 +30,28 @@ describe("Delivery Fee Calculator", () => {
 
     })
 
+    test("The UI of your Calculator component appears or not", () => {
+    render(<Calculator />)
+    expect(screen.getByLabelText(/Cart Value/)).toBeInTheDocument()
+    expect(screen.getByLabelText(/Delivary distance/)).toBeInTheDocument()
+    expect(screen.getByLabelText(/Amount of items/)).toBeInTheDocument()
+    expect(screen.getByLabelText(/Time/)).toBeInTheDocument()
+    expect(screen.getByRole('button', {name: /Calculate Delivary Price/})).toBeInTheDocument()
+    })
+
+    test("Renders correctly in the DOM", () => {
+        render(<Calculator />)
+        expect(screen.getByLabelText(/Cart Value/)).toBeInTheDocument()
+        expect(screen.getByLabelText(/Delivary distance/)).toBeInTheDocument()
+        expect(screen.getByLabelText(/Amount of items/)).toBeInTheDocument()
+        expect(screen.getByLabelText(/Time/)).toBeInTheDocument()
+        expect(screen.getByRole('button', {name: /Calculate Delivary Price/})).toBeInTheDocument()
+        expect(screen.getByRole('button', {name: /Calculate Delivary Price/})).toBeInTheDocument()
+        expect(screen.getByRole('button', {name: /Reset/})).toBeInTheDocument()
+        expect(screen.getByText(/Delivary Price: 0/)).toBeInTheDocument()
+    })
+
 })
+
+
 
