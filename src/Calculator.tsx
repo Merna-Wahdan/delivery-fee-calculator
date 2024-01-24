@@ -1,16 +1,19 @@
-import React, { ReactElement, startTransition, useState } from "react";
+import React, { useState } from "react";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { calculateTotalFees } from "./CalculatorUtils";
+import { Box, FormControl, FormLabel, Input } from "@chakra-ui/react";
 // TODO
 //1- check conditions
 //2- write tests
 //3- clean the code
 
+//form validation, require all
 //4- css
 //5- check access..
 //6- datepicker/click on a calendar-like
 //7-check zero input
+//8- read me
 
 
 const Calculator = (): JSX.Element => {
@@ -45,11 +48,11 @@ const Calculator = (): JSX.Element => {
   };
 
   return (
-    <>
+    <Box maxW="480px" maxHeight="480px" m="20px">
       <form onSubmit={handleSubmit}>
-        <label>
-          Cart Value
-          <input
+        <FormControl isRequired>
+          <FormLabel> Cart Value </FormLabel>
+          <Input
             type="number"
             value={cartValue}
             onChange={(e) => setCartValue(Number(e.target.value))}
@@ -57,24 +60,20 @@ const Calculator = (): JSX.Element => {
             step="0.01"
             onBlur={handleOnBlur}
             data-test-id="cartValue"
-          ></input>{" "}
-          €
-        </label>
-        <br />
-
-        <label>
-          Delivary distance
-          <input
+            /> {" "}€
+        </FormControl>
+        <FormControl isRequired>
+          <FormLabel> Delivary distance </FormLabel>
+          <Input
             type="number"
             min="0"
             value={delivaryDistance}
             onChange={(e) => setDelivaryDistance(Number(e.target.value))}
             // onBlur={() => handleOnBlur("deliveryDistance")}
             data-test-id="delivaryDistance"
-          ></input>{" "}
-          m
-        </label>
-        <br />
+            ></Input>{" "}m
+        </FormControl>
+        <FormControl>
         <label>
           Amount of items
           <input
@@ -87,8 +86,7 @@ const Calculator = (): JSX.Element => {
 
           ></input>
         </label>
-        <br />
-
+        </FormControl>
         <label>
           Time
           <DatePicker
@@ -113,7 +111,7 @@ const Calculator = (): JSX.Element => {
 
         <h4 data-test-id="fee">Delivary Price: {delivaryPrice}</h4>
       </form>
-    </>
+    </Box>
   );
 };
 
