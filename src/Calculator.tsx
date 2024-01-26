@@ -2,18 +2,23 @@ import React, { useState } from "react";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { calculateTotalFees } from "./CalculatorUtils";
-import { Box, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormLabel, Text, Image, Heading, Input, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Center, Flex, useToast } from "@chakra-ui/react";
+import { CustomNumberInput } from "./component/NumberInput";
+import { FeeDetails } from "./component/DelivaryFeeDetails";
 // TODO
 //1- check conditions
 //2- write tests
 //3- clean the code
-
+//delivery price = 1 when reset
 //form validation, require all
 //4- css
 //5- check access..
 //6- datepicker/click on a calendar-like
 //7-check zero input
+
+
 //8- read me
+
 
 
 const Calculator = (): JSX.Element => {
@@ -26,11 +31,11 @@ const Calculator = (): JSX.Element => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const totalFees = calculateTotalFees(cartValue,
+    const price = calculateTotalFees(cartValue,
       delivaryDistance,
       amountOfItems,
       startDate)
-      setDelivaryPrice(totalFees)
+      setDelivaryPrice(price)
     
   };
 
@@ -42,54 +47,68 @@ const Calculator = (): JSX.Element => {
     setStartDate(new Date());
   };
 
+  // const toast = useToast()
+  // const showToast = (): void => {
+  //   toast({
+  //     title: 'How delivery fee is calculated:',
+  //     description: "We've created your account for you.",
+  //     // status: 'success',
+  //     duration: 9000,
+  //     isClosable: true,
+  //   })
+  // }
+  
 
-  const handleOnBlur = (): void => {
-    setCartValue(cartValue);
-  };
+  const buttonStyle = {
+    m: "10px",
+    bg: "blue.500",
+    color: "white",
+    mb: "10px",
+    _hover: {
+    bg: "white",
+    color: "blue.300"
+  }
+  }
 
   return (
-    <Box maxW="480px" maxHeight="480px" m="20px">
+    <Box 
+      maxW="480px" 
+      maxHeight="480px" 
+      m="20px" 
+      >
       <form onSubmit={handleSubmit}>
-        <FormControl isRequired>
-          <FormLabel> Cart Value </FormLabel>
-          <Input
-            type="number"
-            value={cartValue}
-            onChange={(e) => setCartValue(Number(e.target.value))}
-            min="0"
-            step="0.01"
-            onBlur={handleOnBlur}
-            data-test-id="cartValue"
-            /> {" "}€
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel> Delivary distance </FormLabel>
-          <Input
-            type="number"
-            min="0"
-            value={delivaryDistance}
-            onChange={(e) => setDelivaryDistance(Number(e.target.value))}
-            // onBlur={() => handleOnBlur("deliveryDistance")}
-            data-test-id="delivaryDistance"
-            ></Input>{" "}m
-        </FormControl>
-        <FormControl>
-        <label>
-          Amount of items
-          <input
-            type="number"
-            min="0"
-            value={amountOfItems}
-            onChange={(e) => setAmoutOfItems(Number(e.target.value))}
-            // onBlur={() => handleOnBlur("amountOfItems")}
-            data-test-id="amountOfItems"
+        <CustomNumberInput
+        
+         label="Cart Value" 
+          min={0} 
+          step={0.1} 
+          value={cartValue !== 0 ? cartValue : ''} 
+          onChange={e => setCartValue(Number(e))} 
+          data-test-id="cartValue" placeholder="€"/>
 
-          ></input>
-        </label>
-        </FormControl>
-        <label>
-          Time
+        <CustomNumberInput 
+          label="Delivary distance" 
+          min={0} 
+          step={0.1} 
+          value={delivaryDistance !== 0 ? delivaryDistance : ''} 
+          onChange={e => setDelivaryDistance(Number(e))} 
+          data-test-id="delivaryDistance" placeholder="Distance in meters"/>
+
+        <CustomNumberInput 
+          label="Amount of items" 
+          min={0} 
+          step={1} 
+          value={amountOfItems !== 0 ? amountOfItems : ''} 
+          onChange={e => setAmoutOfItems(Number(e))} 
+          data-test-id="amountOfItems" placeholder="How many items"/>
+
+        <FormControl isRequired m="5px" >
+          <FormLabel htmlFor="datepicker">Time</FormLabel>
           <DatePicker
+            id="datepicker"
+            wrapperClassName="datePicker" 
+            showIcon
+            icon="fa fa-calendar"
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             showTimeSelect
@@ -98,18 +117,20 @@ const Calculator = (): JSX.Element => {
             timeCaption="time"
             dateFormat="dd/MM/yyyy h:mm aa"
             data-test-id="time"
-          />
-        </label>
-        <br />
+            />
+        </FormControl>
 
-        <button type="submit">
-          Calculate Delivary Price
-        </button>
-        <button type="button" onClick={clearForm}>
-          Reset
-        </button>
+        <Center>
+          <Button sx={buttonStyle} type="submit"> Calculate Delivary Price </Button>
+          <Button sx={buttonStyle} type="submit" onClick={clearForm}> Reset </Button>
+        </Center>
 
-        <h4 data-test-id="fee">Delivary Price: {delivaryPrice}</h4>
+        <Flex align='center' justify="space-between">
+          <Text fontWeight="bold" fontSize= 'xl' data-test-id="fee">
+            Delivary Price: {delivaryPrice}€
+          </Text>
+          <FeeDetails />
+        </Flex>
       </form>
     </Box>
   );
