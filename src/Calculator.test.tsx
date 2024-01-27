@@ -1,8 +1,12 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import Calculator from './Calculator';
+import {configure} from '@testing-library/react'
+
+configure({testIdAttribute: 'data-test-id'})
+
 
 describe("Calculator component", () => {
-    test("The UI of your Calculator component appears or not", () => {
+    test("The UI of Calculator component appears", () => {
         render(<Calculator />)
         expect(screen.getByLabelText(/Cart Value/)).toBeInTheDocument()
         expect(screen.getByLabelText(/Delivary distance/)).toBeInTheDocument()
@@ -29,14 +33,11 @@ describe("Calculator component", () => {
 
         const timeInput = screen.getByLabelText(/Time/)
         fireEvent.change(timeInput, { target: {value: date} })
-
-        // const deliveryPriceOutput = screen.getByText(/Delivary Price:/)
         
-
         const submitButton = screen.getByText(/Calculate Delivary Price/)
         fireEvent.click(submitButton)
 
-        expect(screen.getByText("Delivary Price: 2")).toBeInTheDocument()
+        expect(screen.getByTestId("fee").textContent).toBe("Delivary Price: 2€")
 
     })
 
