@@ -15,14 +15,16 @@ import { FeeDetails } from "./component/DelivaryFeeDetails";
 //5- check access..
 //6- datepicker/click on a calendar-like
 //7-check zero input
+//scroll up and down with mouse wheel is opposite 
 
-
+//add . in the values
+//correct delivery typo
 //8- read me
 
 
 
 const Calculator = (): JSX.Element => {
-  const [cartValue, setCartValue] = useState<number>(0);
+  const [cartValue, setCartValue] = useState<string>("");
   const [delivaryDistance, setDelivaryDistance] = useState<number>(0);
   const [amountOfItems, setAmoutOfItems] = useState<number>(0);
   const [startDate, setStartDate] = useState<Date | null>(new Date()); 
@@ -31,7 +33,7 @@ const Calculator = (): JSX.Element => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const price = calculateTotalFees(cartValue,
+    const price = calculateTotalFees(parseFloat(cartValue),
       delivaryDistance,
       amountOfItems,
       startDate)
@@ -40,12 +42,17 @@ const Calculator = (): JSX.Element => {
   };
 
   const clearForm = (): void => {
-    setCartValue(0);
+    setCartValue("");
     setDelivaryDistance(0)
     setAmoutOfItems(0)
     setDelivaryPrice(0);
     setStartDate(new Date());
   };
+
+  // const handleOnBlur = (): void => {
+  //   const newValue = cartValue.toString() !== "" ? parseFloat(cartValue.toString()) : cartValue
+  //   setCartValue(newValue || 0)
+  // };
 
   // const toast = useToast()
   // const showToast = (): void => {
@@ -57,6 +64,10 @@ const Calculator = (): JSX.Element => {
   //     isClosable: true,
   //   })
   // }
+
+  // const handleChangeCartValue = (valueAsString: string) => {
+  //   setCartValue(Number(valueAsString));
+  // };
   
 
   const buttonStyle = {
@@ -80,27 +91,39 @@ const Calculator = (): JSX.Element => {
         <CustomNumberInput
         
          label="Cart Value" 
-          min={0} 
-          step={0.1} 
-          value={cartValue !== 0 ? cartValue : ''} 
-          onChange={e => setCartValue(Number(e))} 
-          data-test-id="cartValue" placeholder="€"/>
+          // min={0}
+          step={0.01} 
+          value={parseFloat(cartValue) !== 0 ? cartValue : ''} 
+          onChange={e => {setCartValue((e) || "0")}} 
+          // onChange={(valueAsString: string) => {
+          //   // Parse the string value as a float and update the cartValue state
+          //   setCartValue(parseFloat(valueAsString) || 0); // Fallback to 0 if parseFloat returns NaN
+          // }}
+          data-test-id="cartValue" placeholder="€"
+          clampValueOnBlur={true}
+          />
 
         <CustomNumberInput 
           label="Delivary distance" 
-          min={0} 
+          // min={0} 
           step={0.1} 
           value={delivaryDistance !== 0 ? delivaryDistance : ''} 
-          onChange={e => setDelivaryDistance(Number(e))} 
-          data-test-id="delivaryDistance" placeholder="Distance in meters"/>
+          onChange={e => {setDelivaryDistance(parseFloat(e) || 0)}} 
+          data-test-id="delivaryDistance" 
+          placeholder="Distance in meters"
+          clampValueOnBlur={false}
+          />
 
         <CustomNumberInput 
           label="Amount of items" 
-          min={0} 
+          // min={0} 
           step={1} 
           value={amountOfItems !== 0 ? amountOfItems : ''} 
-          onChange={e => setAmoutOfItems(Number(e))} 
-          data-test-id="amountOfItems" placeholder="How many items"/>
+          onChange={e => {setAmoutOfItems(parseFloat(e) || 0)}} 
+          data-test-id="amountOfItems" 
+          placeholder="How many items"
+          clampValueOnBlur={false}
+          />
 
         <FormControl isRequired m="5px" >
           <FormLabel htmlFor="datepicker">Time</FormLabel>
@@ -137,3 +160,4 @@ const Calculator = (): JSX.Element => {
 };
 
 export default Calculator;
+
