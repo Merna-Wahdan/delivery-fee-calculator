@@ -35,8 +35,7 @@ export const isRushHour = (startDate: Date | null): boolean => {
   return (
     startDate?.getDay() === 5 &&
     startDate.getHours() >= 15 &&
-    startDate.getHours() <= 19
-  )
+    startDate.getHours() < 19)
 }
 
 export const calculateTotalFees = (cartValue: number,
