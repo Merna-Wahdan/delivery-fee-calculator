@@ -5,6 +5,7 @@ import { calculateTotalFees } from './CalculatorUtils'
 import { Box, Button, FormControl, FormLabel, Text, Center, Flex } from '@chakra-ui/react'
 import { FormNumberInput } from './component/NumberInput'
 import { FeeDetails } from './component/DelivaryFeeDetails'
+import { useIntl } from 'react-intl'
 
 const Calculator = (): JSX.Element => {
   const [cartValue, setCartValue] = useState<string>('')
@@ -40,6 +41,7 @@ const Calculator = (): JSX.Element => {
       color: 'blue.300'
     }
   }
+  const intl = useIntl()
 
   return (
     <Box
@@ -50,7 +52,7 @@ const Calculator = (): JSX.Element => {
       <form onSubmit={handleSubmit}>
         <FormNumberInput
 
-         label="Cart Value"
+          label= {intl.formatMessage({ id: 'cart_value' })}
           step={0.01}
           value={parseFloat(cartValue) !== 0 ? cartValue : ''}
           onChange={e => { setCartValue(e) }}
@@ -58,7 +60,7 @@ const Calculator = (): JSX.Element => {
           />
 
         <FormNumberInput
-          label="Delivery distance"
+          label= {intl.formatMessage({ id: 'delivery_distance' })}
           step={0.01}
           value={deliveryDistance !== 0 ? deliveryDistance : ''}
           onChange={e => {
@@ -70,7 +72,7 @@ const Calculator = (): JSX.Element => {
           />
 
         <FormNumberInput
-          label="Amount of items"
+          label= {intl.formatMessage({ id: 'amount_of_items' })}
           step={1}
           value={amountOfItems !== 0 ? amountOfItems : ''}
           onChange={e => {
@@ -82,7 +84,7 @@ const Calculator = (): JSX.Element => {
           />
 
         <FormControl isRequired m="5px" >
-          <FormLabel htmlFor="datepicker">Time</FormLabel>
+          <FormLabel htmlFor="datepicker">{intl.formatMessage({ id: 'time' })}</FormLabel>
           <DatePicker
             id="datepicker"
             wrapperClassName="datePicker"
@@ -100,13 +102,13 @@ const Calculator = (): JSX.Element => {
         </FormControl>
 
         <Center>
-          <Button sx={buttonStyle} type="submit"> Calculate Delivery Price </Button>
-          <Button sx={buttonStyle} type="submit" onClick={clearForm}> Reset </Button>
+          <Button sx={buttonStyle} type="submit"> {intl.formatMessage({ id: 'calculate_delivery_price' })} </Button>
+          <Button sx={buttonStyle} type="submit" onClick={clearForm}> {intl.formatMessage({ id: 'reset' })} </Button>
         </Center>
 
         <Flex align='center' justify="space-between">
           <Text fontWeight="bold" fontSize= 'xl' data-test-id="fee">
-            Delivery Price: {deliveryPrice}€
+            {intl.formatMessage({ id: 'delivery_price' })}: {deliveryPrice}€
           </Text>
           <FeeDetails />
         </Flex>
