@@ -1,5 +1,4 @@
 import {calculateAmountOfItemsFees, calculateCartValueFees, calculateDistanceFees, calculateTotalFees, isRushHour} from './CalculatorUtils'
-//handle negative input in code to throw exeption then test it
 
 describe("CalculationsUtils", () => {
     test("Test Cart Value that it returns correct value", () => {
