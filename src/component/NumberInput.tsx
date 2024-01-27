@@ -2,7 +2,6 @@ import { FormControl, FormLabel, NumberDecrementStepper, NumberIncrementStepper,
 
 interface CustomNumberInputProps {
     label: string;
-    min: number;
     step: number;
     value: number | string;
     onChange: (value: string) => void;
@@ -13,12 +12,12 @@ interface CustomNumberInputProps {
 
 export const CustomNumberInput = ({
     label,
-    min,
     step,
     value,
-    onChange, 
+    onChange,
     'data-test-id': dataTestId,
     placeholder, 
+
 }: CustomNumberInputProps): JSX.Element => {
     return (
         <FormControl 
@@ -26,14 +25,13 @@ export const CustomNumberInput = ({
           >
           <FormLabel borderColor='blue.200'>{label}</FormLabel>
           <NumberInput 
-            allowMouseWheel
-            min={min} 
+            min={0} 
             step={step}
             value={value}
-            onChange={onChange}             
+            onChange={onChange}      
             data-test-id={dataTestId}
-          >
-            <NumberInputField     
+            >
+            <NumberInputField  
               borderWidth='2px' 
               borderColor='blue.200'
               placeholder={placeholder}/>
