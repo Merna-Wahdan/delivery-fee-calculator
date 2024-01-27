@@ -10,16 +10,15 @@ import { FeeDetails } from "./component/DelivaryFeeDetails";
 
 const Calculator = (): JSX.Element => {
   const [cartValue, setCartValue] = useState<string>("");
-  const [delivaryDistance, setDelivaryDistance] = useState<number>(0);
+  const [deliveryDistance, setDelivaryDistance] = useState<number>(0);
   const [amountOfItems, setAmoutOfItems] = useState<number>(0);
   const [startDate, setStartDate] = useState<Date | null>(new Date()); 
-  const [delivaryPrice, setDelivaryPrice] = useState<number>(0);
+  const [deliveryPrice, setDelivaryPrice] = useState<number>(0);
   
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const price = calculateTotalFees(parseFloat(cartValue),
-      delivaryDistance,
+      deliveryDistance,
       amountOfItems,
       startDate)
       setDelivaryPrice(price)
@@ -64,11 +63,11 @@ const Calculator = (): JSX.Element => {
           />
 
         <CustomNumberInput 
-          label="Delivary distance" 
+          label="Delivery distance" 
           step={0.01} 
-          value={delivaryDistance !== 0 ? delivaryDistance : ''} 
+          value={deliveryDistance !== 0 ? deliveryDistance : ''} 
           onChange={e => {setDelivaryDistance(parseFloat(e) || 0)}} 
-          data-test-id="delivaryDistance" 
+          data-test-id="deliveryDistance" 
           placeholder="Distance in meters"
           />
 
@@ -100,13 +99,13 @@ const Calculator = (): JSX.Element => {
         </FormControl>
 
         <Center>
-          <Button sx={buttonStyle} type="submit"> Calculate Delivary Price </Button>
+          <Button sx={buttonStyle} type="submit"> Calculate Delivery Price </Button>
           <Button sx={buttonStyle} type="submit" onClick={clearForm}> Reset </Button>
         </Center>
 
         <Flex align='center' justify="space-between">
           <Text fontWeight="bold" fontSize= 'xl' data-test-id="fee">
-            Delivary Price: {delivaryPrice}€
+            Delivery Price: {deliveryPrice}€
           </Text>
           <FeeDetails />
         </Flex>

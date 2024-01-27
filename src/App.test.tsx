@@ -4,5 +4,5 @@ import App from './App';
 
 test('renders calcaultor', () => {
   render(<App />);
-  expect(screen.getByText(/Calculate Delivary Price/)).toBeInTheDocument();
+  expect(screen.getByText(/Calculate Delivery Price/)).toBeInTheDocument();
 });

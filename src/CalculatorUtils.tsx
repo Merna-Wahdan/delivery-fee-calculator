@@ -8,12 +8,12 @@ export const calculateCartValueFees = (cartValue: number): number => {
       return Number(surcharge.toFixed(2))
   }
 
-export const calculateDistanceFees = (delivaryDistance: number) : number => {
-  if(delivaryDistance === 0){
+export const calculateDistanceFees = (deliveryDistance: number) : number => {
+  if(deliveryDistance === 0){
     return 1
   }
     const minDelivaryDistance: number = 500;
-    return Math.ceil(delivaryDistance / minDelivaryDistance);
+    return Math.ceil(deliveryDistance / minDelivaryDistance);
   }
 
 export const calculateAmountOfItemsFees = (amountOfItems: number): number => {
@@ -43,7 +43,7 @@ export const isRushHour = (startDate: Date | null): boolean => {
   }
 
 export const calculateTotalFees = (cartValue: number,
-    delivaryDistance: number,
+    deliveryDistance: number,
     amountOfItems: number,
     startDate: Date | null): number => {
     let totalPrice: number = 0;
@@ -51,7 +51,7 @@ export const calculateTotalFees = (cartValue: number,
     const maxCartValue: number = 200
 
     const cartValueFees = calculateCartValueFees(cartValue)
-    const distanceFees = calculateDistanceFees(delivaryDistance)
+    const distanceFees = calculateDistanceFees(deliveryDistance)
     const amountOfItemsFees = calculateAmountOfItemsFees(amountOfItems)
 
     
