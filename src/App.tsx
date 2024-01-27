@@ -1,5 +1,4 @@
 
-import './App.css';
 import Calculator from './Calculator';
 import { Box, Container, Flex } from '@chakra-ui/react';
 
