@@ -1,11 +1,11 @@
-import { Button, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
-
+import React from 'react'
+import { Button, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react'
 
 export const FeeDetails = (): JSX.Element => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    return (
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  return (
       <>
-        <Image  borderRadius="full" onClick={onOpen} objectFit="cover" boxSize="30px" mb="2px" src="/exclamation-mark.png"/>
+        <Image borderRadius="full" onClick={onOpen} objectFit="cover" boxSize="30px" mb="2px" src="/exclamation-mark.png"/>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
@@ -20,7 +20,7 @@ export const FeeDetails = (): JSX.Element => {
             <br/>
             • During Friday rush hours (3 - 7 PM), the delivery fee increases by 1.2x, with a maximum cap of 15€
             </ModalBody>
-  
+
             <ModalFooter>
               <Button colorScheme='blue' mr={3} onClick={onClose}>
                 Close
@@ -29,5 +29,5 @@ export const FeeDetails = (): JSX.Element => {
           </ModalContent>
         </Modal>
       </>
-    )
-  }
+  )
+}

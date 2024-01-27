@@ -1,82 +1,83 @@
-import React, { useState } from "react";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { calculateTotalFees } from "./CalculatorUtils";
-import { Box, Button, FormControl, FormLabel, Text, Center, Flex } from "@chakra-ui/react";
-import { CustomNumberInput } from "./component/NumberInput";
-import { FeeDetails } from "./component/DelivaryFeeDetails";
-
-
+import React, { useState } from 'react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { calculateTotalFees } from './CalculatorUtils'
+import { Box, Button, FormControl, FormLabel, Text, Center, Flex } from '@chakra-ui/react'
+import { CustomNumberInput } from './component/NumberInput'
+import { FeeDetails } from './component/DelivaryFeeDetails'
 
 const Calculator = (): JSX.Element => {
-  const [cartValue, setCartValue] = useState<string>("");
-  const [deliveryDistance, setDelivaryDistance] = useState<number>(0);
-  const [amountOfItems, setAmoutOfItems] = useState<number>(0);
-  const [startDate, setStartDate] = useState<Date | null>(new Date()); 
-  const [deliveryPrice, setDelivaryPrice] = useState<number>(0);
-  
+  const [cartValue, setCartValue] = useState<string>('')
+  const [deliveryDistance, setDelivaryDistance] = useState<number>(0)
+  const [amountOfItems, setAmoutOfItems] = useState<number>(0)
+  const [startDate, setStartDate] = useState<Date | null>(new Date())
+  const [deliveryPrice, setDelivaryPrice] = useState<number>(0)
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
+    e.preventDefault()
     const price = calculateTotalFees(parseFloat(cartValue),
       deliveryDistance,
       amountOfItems,
       startDate)
-      setDelivaryPrice(price)
-    
-  };
+    setDelivaryPrice(price)
+  }
 
   const clearForm = (): void => {
-    setCartValue("");
+    setCartValue('')
     setDelivaryDistance(0)
     setAmoutOfItems(0)
-    setDelivaryPrice(0);
-    setStartDate(new Date());
-  };
-
-
+    setDelivaryPrice(0)
+    setStartDate(new Date())
+  }
 
   const buttonStyle = {
-    m: "10px",
-    bg: "blue.500",
-    color: "white",
-    mb: "10px",
+    m: '10px',
+    bg: 'blue.500',
+    color: 'white',
+    mb: '10px',
     _hover: {
-    bg: "white",
-    color: "blue.300"
-  }
+      bg: 'white',
+      color: 'blue.300'
+    }
   }
 
   return (
-    <Box 
-      maxW="480px" 
-      maxHeight="480px" 
-      m="20px" 
+    <Box
+      maxW="480px"
+      maxHeight="480px"
+      m="20px"
       >
       <form onSubmit={handleSubmit}>
         <CustomNumberInput
-        
-         label="Cart Value" 
-          step={0.01} 
-          value={parseFloat(cartValue) !== 0 ? cartValue : ''} 
-          onChange={e => {setCartValue((e) || "0")}} 
+
+         label="Cart Value"
+          step={0.01}
+          value={parseFloat(cartValue) !== 0 ? cartValue : ''}
+          onChange={e => { setCartValue(e) }}
           data-test-id="cartValue" placeholder="€"
           />
 
-        <CustomNumberInput 
-          label="Delivery distance" 
-          step={0.01} 
-          value={deliveryDistance !== 0 ? deliveryDistance : ''} 
-          onChange={e => {setDelivaryDistance(parseFloat(e) || 0)}} 
-          data-test-id="deliveryDistance" 
+        <CustomNumberInput
+          label="Delivery distance"
+          step={0.01}
+          value={deliveryDistance !== 0 ? deliveryDistance : ''}
+          onChange={e => {
+            const parsedValue = parseFloat(e)
+            setDelivaryDistance(isNaN(parsedValue) ? 0 : parsedValue)
+          }}
+          data-test-id="deliveryDistance"
           placeholder="Distance in meters"
           />
 
-        <CustomNumberInput 
-          label="Amount of items" 
-          step={1} 
-          value={amountOfItems !== 0 ? amountOfItems : ''} 
-          onChange={e => {setAmoutOfItems(parseFloat(e) || 0)}} 
-          data-test-id="amountOfItems" 
+        <CustomNumberInput
+          label="Amount of items"
+          step={1}
+          value={amountOfItems !== 0 ? amountOfItems : ''}
+          onChange={e => {
+            const parsedValue = parseFloat(e)
+            setAmoutOfItems(isNaN(parsedValue) ? 0 : parsedValue)
+          }}
+          data-test-id="amountOfItems"
           placeholder="How many items"
           />
 
@@ -84,11 +85,11 @@ const Calculator = (): JSX.Element => {
           <FormLabel htmlFor="datepicker">Time</FormLabel>
           <DatePicker
             id="datepicker"
-            wrapperClassName="datePicker" 
+            wrapperClassName="datePicker"
             showIcon
             icon="fa fa-calendar"
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={(date) => { setStartDate(date) }}
             showTimeSelect
             timeFormat="h:mm aa"
             timeIntervals={1}
@@ -111,8 +112,7 @@ const Calculator = (): JSX.Element => {
         </Flex>
       </form>
     </Box>
-  );
-};
+  )
+}
 
-export default Calculator;
-
+export default Calculator

@@ -1,9 +1,8 @@
+import React from 'react'
+import Calculator from './Calculator'
+import { Box, Container, Flex } from '@chakra-ui/react'
 
-import Calculator from './Calculator';
-import { Box, Container, Flex } from '@chakra-ui/react';
-
-function App() {
-  
+const App = (): JSX.Element => {
   return (
     <>
       <Box
@@ -21,17 +20,17 @@ function App() {
       alignItems="center"
     >
       <Container
-        position="relative" 
+        position="relative"
         maxWidth="xl"
         p={5}
         boxShadow="2xl"
         borderRadius="md"
-        bgColor="rgba(255, 255, 255, 0.8)" 
+        bgColor="rgba(255, 255, 255, 0.8)"
         >
         <Calculator />
-      </Container> 
+      </Container>
     </Flex>
   </>)
 }
 
-export default App;
+export default App
