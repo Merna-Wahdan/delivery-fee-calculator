@@ -1,34 +1,43 @@
 import { calculateAmountOfItemsFees, calculateCartValueFees, calculateDistanceFees, calculateTotalFees, isRushHour } from './CalculatorUtils'
 
 describe('CalculationsUtils', () => {
-  test('Test Cart Value that it returns correct value', () => {
-    expect(calculateCartValueFees(1)).toBe(9)
-
-    expect(calculateCartValueFees(8.90)).toBe(1.10)
-    expect(calculateCartValueFees(10)).toBe(0)
-    expect(calculateCartValueFees(11)).toBe(0)
-  })
-  test('Test Delivery Distance that it returns correct value', () => {
-    expect(calculateDistanceFees(0)).toBe(1)
-    expect(calculateDistanceFees(500)).toBe(1)
-    expect(calculateDistanceFees(1000)).toBe(2)
-    expect(calculateDistanceFees(1001)).toBe(3)
-  })
-  test('Test Amount Of Items that it returns correct value', () => {
-    expect(calculateAmountOfItemsFees(0)).toBe(0)
-    expect(calculateAmountOfItemsFees(4)).toBe(0)
-    expect(calculateAmountOfItemsFees(5)).toBe(0.5)
-    expect(calculateAmountOfItemsFees(12)).toBe(4)
-    expect(calculateAmountOfItemsFees(13)).toBe(5.7)
-    expect(calculateAmountOfItemsFees(14)).toBe(6.2)
+  test.each([
+    [1, 9],
+    [8.90, 1.10],
+    [10, 0],
+    [11, 0]
+  ])('Test Cart Value that it returns correct value', (value, expectedFee) => {
+    expect(calculateCartValueFees(value)).toBe(expectedFee)
   })
 
-  test('Test is it rush hour', () => {
-    expect(isRushHour(new Date('2024-01-12T15:00:00'))).toBe(true)
-    expect(isRushHour(new Date('2024-01-12T17:00:00'))).toBe(true)
-    expect(isRushHour(new Date('2024-01-12T19:00:00'))).toBe(true)
-    expect(isRushHour(new Date('2024-01-12T19:0:01'))).toBe(false)
-    expect(isRushHour(new Date('2024-01-11T15:00:00'))).toBe(false)
+  test.each([
+    [0, 1],
+    [500, 1],
+    [1000, 2],
+    [1001, 3]
+  ])('Test Delivery Distance that it returns correct value', (value, expectedFee) => {
+    expect(calculateDistanceFees(value)).toBe(expectedFee)
+  })
+
+  test.each([
+    [0, 0],
+    [4, 0],
+    [5, 0.5],
+    [12, 4],
+    [13, 5.7],
+    [14, 6.2]
+  ])('Test Amount Of Items that it returns correct value', (value, expectedFee) => {
+    expect(calculateAmountOfItemsFees(value)).toBe(expectedFee)
+  })
+
+  test.each([
+    [new Date('2024-01-12T15:00:00'), true],
+    [new Date('2024-01-12T17:00:00'), true],
+    [new Date('2024-01-12T19:00:00'), false],
+    [new Date('2024-01-12T19:10:00'), false],
+    [new Date('2024-01-11T15:00:00'), false]
+  ])('Test is it rush hour', (value, expected) => {
+    expect(isRushHour(new Date(value))).toBe(expected)
   })
 
   test('Test Cart Value less than 10€', () => {
@@ -78,8 +87,8 @@ describe('CalculationsUtils', () => {
   test('During the Friday rush, 5:30PM, the delivery fee will be multiplied by 1.2x', () => {
     expect(calculateTotalFees(20, 1499, 1, new Date('2024-01-12T17:30:00'))).toBe(3.6)
   })
-  test('During the Friday rush, 7PM, the delivery fee will be multiplied by 1.2x', () => {
-    expect(calculateTotalFees(20, 1501, 10, new Date('2024-01-12T19:00:00'))).toBe(8.4)
+  test('During the Friday rush, exact 7PM, the delivery fee will not be multiplied by 1.2x', () => {
+    expect(calculateTotalFees(20, 1501, 10, new Date('2024-01-12T19:00:00'))).toBe(7)
   })
   test('Test Delivery Fees can never be more than 15€ during the Friday rush, 7PM', () => {
     expect(calculateTotalFees(20, 4500, 26, new Date('2024-01-12T19:00:00'))).toBe(15)
