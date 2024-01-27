@@ -1,17 +1,16 @@
 import React from 'react'
 import { FormControl, FormLabel, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from '@chakra-ui/react'
 
-interface CustomNumberInputProps {
+interface FormNumberInputProps {
   label: string
   step: number
   value: number | string
   onChange: (value: string) => void
   'data-test-id': string
   placeholder: string
-
 }
 
-export const CustomNumberInput = ({
+export const FormNumberInput = ({
   label,
   step,
   value,
@@ -19,7 +18,7 @@ export const CustomNumberInput = ({
   'data-test-id': dataTestId,
   placeholder
 
-}: CustomNumberInputProps): JSX.Element => {
+}: FormNumberInputProps): JSX.Element => {
   return (
         <FormControl
           isRequired

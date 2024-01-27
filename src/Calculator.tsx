@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { calculateTotalFees } from './CalculatorUtils'
 import { Box, Button, FormControl, FormLabel, Text, Center, Flex } from '@chakra-ui/react'
-import { CustomNumberInput } from './component/NumberInput'
+import { FormNumberInput } from './component/NumberInput'
 import { FeeDetails } from './component/DelivaryFeeDetails'
 
 const Calculator = (): JSX.Element => {
@@ -48,7 +48,7 @@ const Calculator = (): JSX.Element => {
       m="20px"
       >
       <form onSubmit={handleSubmit}>
-        <CustomNumberInput
+        <FormNumberInput
 
          label="Cart Value"
           step={0.01}
@@ -57,7 +57,7 @@ const Calculator = (): JSX.Element => {
           data-test-id="cartValue" placeholder="€"
           />
 
-        <CustomNumberInput
+        <FormNumberInput
           label="Delivery distance"
           step={0.01}
           value={deliveryDistance !== 0 ? deliveryDistance : ''}
@@ -69,7 +69,7 @@ const Calculator = (): JSX.Element => {
           placeholder="Distance in meters"
           />
 
-        <CustomNumberInput
+        <FormNumberInput
           label="Amount of items"
           step={1}
           value={amountOfItems !== 0 ? amountOfItems : ''}
