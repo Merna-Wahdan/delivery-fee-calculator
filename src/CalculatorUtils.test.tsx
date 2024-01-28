@@ -11,10 +11,13 @@ describe('CalculationsUtils', () => {
   })
 
   test.each([
-    [0, 1],
-    [500, 1],
+    [0, 2],
+    [500, 2],
     [1000, 2],
-    [1001, 3]
+    [1001, 3],
+    [1499, 3],
+    [1500, 3],
+    [1501, 4]
   ])('Test Delivery Distance that it returns correct value', (value, expectedFee) => {
     expect(calculateDistanceFees(value)).toBe(expectedFee)
   })
@@ -41,10 +44,10 @@ describe('CalculationsUtils', () => {
   })
 
   test('Test Cart Value less than 10€', () => {
-    expect(calculateTotalFees(9, 499, 1, new Date('2024-01-20T00:00:00'))).toBe(2)
+    expect(calculateTotalFees(9, 499, 1, new Date('2024-01-20T00:00:00'))).toBe(3)
   })
   test('Test Cart Value equal 10€', () => {
-    expect(calculateTotalFees(10, 499, 1, new Date('2024-01-20T00:00:00'))).toBe(1)
+    expect(calculateTotalFees(10, 499, 1, new Date('2024-01-20T00:00:00'))).toBe(2)
   })
   test('Test Cart Value more than 10€', () => {
     expect(calculateTotalFees(20, 1000, 1, new Date('2024-01-20T00:00:00'))).toBe(2)
@@ -82,7 +85,7 @@ describe('CalculationsUtils', () => {
     expect(calculateTotalFees(201, 4500, 26, new Date('2024-01-20T00:00:00'))).toBe(0)
   })
   test('During the Friday rush, 3PM, the delivery fee will be multiplied by 1.2x', () => {
-    expect(calculateTotalFees(9, 499, 1, new Date('2024-01-12T15:00:00'))).toBe(2.4)
+    expect(calculateTotalFees(9, 499, 1, new Date('2024-01-12T15:00:00'))).toBe(3.6)
   })
   test('During the Friday rush, 5:30PM, the delivery fee will be multiplied by 1.2x', () => {
     expect(calculateTotalFees(20, 1499, 1, new Date('2024-01-12T17:30:00'))).toBe(3.6)

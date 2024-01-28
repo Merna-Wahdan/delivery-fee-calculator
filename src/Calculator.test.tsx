@@ -1,15 +1,26 @@
 import React from 'react'
 import { fireEvent, render, screen, configure } from '@testing-library/react'
+
 import Calculator from './Calculator'
+import { IntlProvider } from 'react-intl'
+import en from './locales/en.json'
 
 configure({ testIdAttribute: 'data-test-id' })
 
 describe('Calculator component', () => {
+  const useIntlProvider = (component: React.ReactNode): ReturnType<typeof render> => {
+    return render(
+      <IntlProvider locale="en" messages={en}>
+      {component}
+      </IntlProvider>
+    )
+  }
+
   test('The UI of Calculator component appears', () => {
-    render(<Calculator />)
+    useIntlProvider(<Calculator />)
     expect(screen.getByLabelText(/Cart Value/)).toBeInTheDocument()
-    expect(screen.getByLabelText(/Delivery distance/)).toBeInTheDocument()
-    expect(screen.getByLabelText(/Amount of items/)).toBeInTheDocument()
+    expect(screen.getByLabelText(/Delivery Distance/)).toBeInTheDocument()
+    expect(screen.getByLabelText(/Amount of Items/)).toBeInTheDocument()
     expect(screen.getByLabelText(/Time/)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /Calculate Delivery Price/ })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /Reset/ })).toBeInTheDocument()
@@ -20,14 +31,14 @@ describe('Calculator component', () => {
     const deliveryDistance = '499'
     const amountOfItems = '2'
     const date = new Date('2024-01-20T00:00:00')
-    render(<Calculator />)
+    useIntlProvider(<Calculator />)
     const cartValueInput = screen.getByLabelText(/Cart Value/)
     fireEvent.change(cartValueInput, { target: { value: cartValue } })
 
-    const deliveryDistanceInput = screen.getByLabelText(/Delivery distance/)
+    const deliveryDistanceInput = screen.getByLabelText(/Delivery Distance/)
     fireEvent.change(deliveryDistanceInput, { target: { value: deliveryDistance } })
 
-    const amountOfItemsInput = screen.getByLabelText(/Amount of items/)
+    const amountOfItemsInput = screen.getByLabelText(/Amount of Items/)
     fireEvent.change(amountOfItemsInput, { target: { value: amountOfItems } })
 
     const timeInput = screen.getByLabelText(/Time/)
@@ -36,6 +47,6 @@ describe('Calculator component', () => {
     const submitButton = screen.getByText(/Calculate Delivery Price/)
     fireEvent.click(submitButton)
 
-    expect(screen.getByTestId('fee').textContent).toBe('Delivery Price: 2€')
+    expect(screen.getByTestId('fee').textContent).toBe('Delivery Price: 3€')
   })
 })
