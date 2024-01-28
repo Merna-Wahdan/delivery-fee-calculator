@@ -75,9 +75,7 @@ const Calculator = (): JSX.Element => {
           min={0}
           step={1}
           value={formatNumber(deliveryDistance)}
-          onChange={e => {
-            setDelivaryDistance(getNumberOrZero(e))
-          }}
+          onChange={e => { setDelivaryDistance(getNumberOrZero(e)) }}
           data-test-id="deliveryDistance"
           placeholder= {intl.formatMessage({ id: 'distance_placeholder' })}
           />
