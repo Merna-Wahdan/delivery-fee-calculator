@@ -1,46 +1,86 @@
-# Getting Started with Create React App
+# Delivery Fee Calculator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![screenshot](./screenshots/Calculator%20screenshot.png)
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+This project is a React-based web application that provides a user-friendly interface for calculating delivery fees. It takes into account various factors such as cart value, delivery distance, number of items, and time of order to determine the appropriate delivery charge.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Calculator Interface**: A form where users can input cart value, delivery distance, number of items, and select the time of order.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Responsive Design**: The UI is responsive and user-friendly, making it accessible on various devices.
 
-### `npm test`
+- **Internationalization**: The application is prepared for internationalization, allowing for easy localization.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Install:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```sh
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+npm  install
 
-### `npm run eject`
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Running the Application
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. To start the application, run:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```sh
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+npm start
 
-## Learn More
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Testing
+
+This project includes unit and component tests. To run the tests, execute:
+
+```sh
+
+npm  test
+
+```
+
+## File Structure
+
+- `src/`: Source files for the application.
+
+  - `App.tsx`: Main React component.
+
+  - `Calculator.tsx`: Component for the delivery fee calculator.
+
+  - `CalculatorHandler.tsx`: Utility functions for fee calculation.
+
+  - `components/`: Reusable components.
+
+  - `locales/`: Localization files.
+
+- `public/`: Public files like images and the `index.html`.
+
+- `tests/`: Test files for the application.
+
+## Decisions
+
+**Styling**:
+
+- I have used [chakra ui](https://github.com/chakra-ui/chakra-ui) because I was familiar with it.
+  **Alternatives**:
+
+    -  Build the UI from scratch using only CSS.
+
+    -  Use another library like [MaterialUI](https://mui.com/core/)
+
+**Code Structure**:
+
+- Separated the logic from the component code into the `CalculatorHandler.tsx` file.
+
+**Parameterized Tests**:
+
+- Used Parameterized Tests to test calculation functions.
