@@ -12,7 +12,7 @@ const Calculator = (): JSX.Element => {
   const [deliveryDistance, setDelivaryDistance] = useState<number>(0)
   const [amountOfItems, setAmoutOfItems] = useState<number>(0)
   const [startDate, setStartDate] = useState<Date | null>(new Date())
-  const [deliveryPrice, setDelivaryPrice] = useState<number>(0)
+  const [deliveryPrice, setDelivaryPrice] = useState<number | undefined>(undefined)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -27,7 +27,7 @@ const Calculator = (): JSX.Element => {
     setCartValue('')
     setDelivaryDistance(0)
     setAmoutOfItems(0)
-    setDelivaryPrice(0)
+    setDelivaryPrice(undefined)
     setStartDate(new Date())
   }
 
@@ -114,9 +114,12 @@ const Calculator = (): JSX.Element => {
         </Center>
 
         <Flex align='center' justify="space-between">
+          {
+          (deliveryPrice != null) &&
           <Text fontWeight="bold" fontSize= 'xl' data-test-id="fee">
             {intl.formatMessage({ id: 'delivery_price' })}: {deliveryPrice}€
           </Text>
+          }
           <FeeDetails />
         </Flex>
       </form>
