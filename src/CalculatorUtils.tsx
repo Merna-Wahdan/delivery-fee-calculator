@@ -1,26 +1,31 @@
 export const calculateCartValueFees = (cartValue: number): number => {
-  let surcharge: number = 0
-  const minCartValue: number = 10
-  if (cartValue > 0 && cartValue < minCartValue) {
+  let surcharge = 0
+  const minCartValue = 10
+  if (cartValue < minCartValue) {
     surcharge = minCartValue - cartValue
   }
-  return Number(surcharge.toFixed(2))
+  return parseFloat(surcharge.toFixed(2))
 }
 
 export const calculateDistanceFees = (delivaryDistance: number): number => {
-  if (delivaryDistance === 0) {
-    return 1
+  const baseFee = 2
+  const baseDistance = 1000
+  const minDelivaryDistance = 500
+
+  if (delivaryDistance <= baseDistance) {
+    return baseFee
+  } else {
+    const extraDistance = delivaryDistance - baseDistance
+    return baseFee + Math.ceil(extraDistance / minDelivaryDistance)
   }
-  const minDelivaryDistance: number = 500
-  return Math.ceil(delivaryDistance / minDelivaryDistance)
 }
 
 export const calculateAmountOfItemsFees = (amountOfItems: number): number => {
-  const additionalSurcharge: number = 0.5
+  const additionalSurcharge = 0.5
   const bulkFees = 1.2
   const minAmountOfItems = 4
   const minBulkFeesAmountOfItems = 12
-  let surchargeItems: number = 0
+  let surchargeItems = 0
 
   if (amountOfItems >= minAmountOfItems) {
     surchargeItems = (amountOfItems - minAmountOfItems) * additionalSurcharge
@@ -28,7 +33,7 @@ export const calculateAmountOfItemsFees = (amountOfItems: number): number => {
   if (amountOfItems > minBulkFeesAmountOfItems) {
     surchargeItems = surchargeItems + bulkFees
   }
-  return Number(surchargeItems.toFixed(2))
+  return parseFloat(surchargeItems.toFixed(2))
 }
 
 export const isRushHour = (startDate: Date | null): boolean => {
@@ -42,9 +47,9 @@ export const calculateTotalFees = (cartValue: number,
   delivaryDistance: number,
   amountOfItems: number,
   startDate: Date | null): number => {
-  let totalPrice: number = 0
-  const maxTotalPrice: number = 15
-  const maxCartValue: number = 200
+  let totalPrice = 0
+  const maxTotalPrice = 15
+  const maxCartValue = 200
 
   const cartValueFees = calculateCartValueFees(cartValue)
   const distanceFees = calculateDistanceFees(delivaryDistance)
@@ -61,5 +66,5 @@ export const calculateTotalFees = (cartValue: number,
     totalPrice = totalPrice * surgeRate
   }
   totalPrice = Math.min(totalPrice, maxTotalPrice)
-  return Number(totalPrice.toFixed(2))
+  return parseFloat(totalPrice.toFixed(2))
 }
