@@ -1,6 +1,6 @@
 import { calculateAmountOfItemsFees, calculateCartValueFees, calculateDistanceFees, calculateTotalFees, isRushHour } from './CalculatorHandler'
 
-describe('CalculationsUtils', () => {
+describe('Calculations Handler', () => {
   test.each([
     [1, 9],
     [8.90, 1.10],

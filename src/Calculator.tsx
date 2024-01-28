@@ -43,15 +43,6 @@ const Calculator = (): JSX.Element => {
   }
   const intl = useIntl()
 
-  const formatNumber = (n: number): string | number => {
-    return n === 0 ? '' : n
-  }
-
-  const getNumberOrZero = (s: string): number => {
-    const parsedValue = parseFloat(s)
-    return (isNaN(parsedValue) ? 0 : parsedValue)
-  }
-
   return (
     <Box
       maxW="480px"
@@ -64,7 +55,7 @@ const Calculator = (): JSX.Element => {
           min={0}
           step={0.01}
           precision={2}
-          value={formatNumber(parseFloat(cartValue))}
+          value={parseFloat(cartValue) !== 0 ? cartValue : ''}
           onChange={e => { setCartValue(e) }}
           data-test-id="cartValue"
           placeholder= {intl.formatMessage({ id: 'cart_value_placeholder' })}
@@ -74,8 +65,11 @@ const Calculator = (): JSX.Element => {
           label= {intl.formatMessage({ id: 'delivery_distance' })}
           min={0}
           step={1}
-          value={formatNumber(deliveryDistance)}
-          onChange={e => { getNumberOrZero(e) }}
+          value={deliveryDistance !== 0 ? deliveryDistance : ''}
+          onChange={e => {
+            const parsedValue = parseFloat(e)
+            setDelivaryDistance(isNaN(parsedValue) ? 0 : parsedValue)
+          }}
           data-test-id="deliveryDistance"
           placeholder= {intl.formatMessage({ id: 'distance_placeholder' })}
           />
@@ -84,8 +78,11 @@ const Calculator = (): JSX.Element => {
           label= {intl.formatMessage({ id: 'amount_of_items' })}
           min={0}
           step={1}
-          value={formatNumber(amountOfItems)}
-          onChange={e => { getNumberOrZero(e) }}
+          value={amountOfItems !== 0 ? amountOfItems : ''}
+          onChange={e => {
+            const parsedValue = parseFloat(e)
+            setAmoutOfItems(isNaN(parsedValue) ? 0 : parsedValue)
+          }}
           data-test-id="amountOfItems"
           placeholder= { intl.formatMessage({ id: 'amount_of_items_placeholder' })}
           />
