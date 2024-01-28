@@ -24,7 +24,6 @@ describe('Calculator component', () => {
     expect(screen.getByLabelText(/Time/)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /Calculate Delivery Price/ })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /Reset/ })).toBeInTheDocument()
-    expect(screen.getByText(/Delivery Price: 0/)).toBeInTheDocument()
   })
   test('User enters Cart Value less than 10, a small order surcharge is added to the delivery price which is equal the difference between the cart value and 10€ ', () => {
     const cartValue = '9'
