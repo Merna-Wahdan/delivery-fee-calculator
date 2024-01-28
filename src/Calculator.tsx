@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { calculateTotalFees } from './CalculatorHandler'
 import { Box, Button, FormControl, FormLabel, Text, Center, Flex } from '@chakra-ui/react'
 import { FormNumberInput } from './component/NumberInput'
-import { FeeDetails } from './component/DelivaryFeeDetails'
+import { FeeDetails } from './component/DelivaryFeeInfo'
 import { useIntl } from 'react-intl'
 
 const Calculator = (): JSX.Element => {
@@ -43,8 +43,8 @@ const Calculator = (): JSX.Element => {
   }
   const intl = useIntl()
 
-  const formatNumber = (n: string | number): string | number => {
-    return n !== 0 ? n : ''
+  const formatNumber = (n: number): string | number => {
+    return n === 0 ? '' : n
   }
 
   const getNumberOrZero = (n: string): number => {
@@ -64,7 +64,7 @@ const Calculator = (): JSX.Element => {
           min={0}
           step={0.01}
           precision={2}
-          value={formatNumber((cartValue))}
+          value={cartValue}
           onChange={e => { setCartValue(e) }}
           data-test-id="cartValue"
           placeholder= {intl.formatMessage({ id: 'cart_value_placeholder' })}
@@ -117,7 +117,7 @@ const Calculator = (): JSX.Element => {
           {
           (deliveryPrice != null) &&
           <Text fontWeight="bold" fontSize= 'xl' data-test-id="fee">
-            {intl.formatMessage({ id: 'delivery_price' })}: {deliveryPrice}€
+            {intl.formatMessage({ id: 'delivery_price' }, { value: deliveryPrice })}
           </Text>
           }
           <FeeDetails />
