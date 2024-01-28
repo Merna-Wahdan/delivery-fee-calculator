@@ -87,3 +87,6 @@ npm  test
 **Parameterized Tests**:
 
 - Used Parameterized Tests to test calculation functions.
+
+## Assumptions
+I assumed that delivery distance shouldn't be less than 1.
