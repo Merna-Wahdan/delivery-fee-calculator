@@ -96,9 +96,7 @@ const Calculator = (): JSX.Element => {
           <FormLabel htmlFor="datepicker">{intl.formatMessage({ id: 'time' })}</FormLabel>
           <DatePicker
             id="datepicker"
-            wrapperClassName="datePicker"
             showIcon
-            icon="fa fa-calendar"
             selected={startDate}
             onChange={(date) => { setStartDate(date) }}
             showTimeSelect
