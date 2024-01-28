@@ -4,7 +4,7 @@ import App from './App'
 import { ChakraProvider } from '@chakra-ui/react'
 import { IntlProvider } from 'react-intl'
 import en from './locales/en.json'
-
+import reactAxe from '@axe-core/react'
 const messages = {
   en
 }
@@ -21,4 +21,10 @@ if (rootElement != null) {
         </ChakraProvider>
       </React.StrictMode>
   )
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  const axe = reactAxe
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  axe(React, ReactDOM, 1000)
 }

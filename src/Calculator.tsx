@@ -33,12 +33,12 @@ const Calculator = (): JSX.Element => {
 
   const buttonStyle = {
     m: '10px',
-    bg: 'blue.500',
+    bg: 'blue.700',
     color: 'white',
     mb: '10px',
     _hover: {
       bg: 'white',
-      color: 'blue.300'
+      color: 'blue.700'
     }
   }
   const intl = useIntl()
