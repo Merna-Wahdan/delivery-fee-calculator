@@ -8,7 +8,14 @@ export const FeeDetails = (): JSX.Element => {
 
   return (
       <>
-        <Image borderRadius="full" onClick={onOpen} objectFit="cover" boxSize="30px" mb="2px" src="/exclamation-mark.png" alt="how delivery fee is calculated info"/>
+        <Image
+        borderRadius="full"
+        onClick={onOpen}
+        objectFit="cover"
+        boxSize="30px"
+        mb="2px"
+        src="/exclamation-mark.png"
+        alt= {intl.formatMessage({ id: 'info_image_alt' })}/>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
