@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { calculateTotalFees } from './CalculatorUtils'
+import { calculateTotalFees } from './CalculatorHandler'
 import { Box, Button, FormControl, FormLabel, Text, Center, Flex } from '@chakra-ui/react'
 import { FormNumberInput } from './component/NumberInput'
 import { FeeDetails } from './component/DelivaryFeeDetails'
@@ -53,7 +53,9 @@ const Calculator = (): JSX.Element => {
         <FormNumberInput
 
           label= {intl.formatMessage({ id: 'cart_value' })}
+          min={0}
           step={0.01}
+          precision={2}
           value={parseFloat(cartValue) !== 0 ? cartValue : ''}
           onChange={e => { setCartValue(e) }}
           data-test-id="cartValue" placeholder="€"
@@ -61,7 +63,8 @@ const Calculator = (): JSX.Element => {
 
         <FormNumberInput
           label= {intl.formatMessage({ id: 'delivery_distance' })}
-          step={0.01}
+          min={0}
+          step={1}
           value={deliveryDistance !== 0 ? deliveryDistance : ''}
           onChange={e => {
             const parsedValue = parseFloat(e)
@@ -73,6 +76,7 @@ const Calculator = (): JSX.Element => {
 
         <FormNumberInput
           label= {intl.formatMessage({ id: 'amount_of_items' })}
+          min={0}
           step={1}
           value={amountOfItems !== 0 ? amountOfItems : ''}
           onChange={e => {
