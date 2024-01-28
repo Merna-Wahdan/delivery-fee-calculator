@@ -66,6 +66,9 @@ npm  test
 
 - `tests/`: Test files for the application.
 
+## Accessability
+  Used [react axe](https://www.npmjs.com/package/@axe-core/react) library to detect accessibility issues.
+
 ## Decisions
 
 **Styling**:
