@@ -112,7 +112,7 @@ const Calculator = (): JSX.Element => {
 
         <Center>
           <Button sx={buttonStyle} type="submit"> {intl.formatMessage({ id: 'calculate_delivery_price' })} </Button>
-          <Button sx={buttonStyle} type="submit" onClick={clearForm}> {intl.formatMessage({ id: 'reset' })} </Button>
+          <Button sx={buttonStyle} type="reset" onClick={clearForm}> {intl.formatMessage({ id: 'reset' })} </Button>
         </Center>
 
         <Flex align='center' justify="space-between">
