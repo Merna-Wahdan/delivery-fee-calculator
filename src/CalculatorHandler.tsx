@@ -27,7 +27,7 @@ export const calculateAmountOfItemsFees = (amountOfItems: number): number => {
   const minBulkFeesAmountOfItems = 12
   let surchargeItems = 0
 
-  if (amountOfItems >= minAmountOfItems) {
+  if (amountOfItems > minAmountOfItems) {
     surchargeItems = (amountOfItems - minAmountOfItems) * additionalSurcharge
   }
   if (amountOfItems > minBulkFeesAmountOfItems) {

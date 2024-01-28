@@ -1,4 +1,4 @@
-import { calculateAmountOfItemsFees, calculateCartValueFees, calculateDistanceFees, calculateTotalFees, isRushHour } from './CalculatorUtils'
+import { calculateAmountOfItemsFees, calculateCartValueFees, calculateDistanceFees, calculateTotalFees, isRushHour } from './CalculatorHandler'
 
 describe('CalculationsUtils', () => {
   test.each([
